@@ -1,0 +1,12 @@
+.mapContainer {
+  width: 99%;
+  height: 99%;
+  margin: auto;
+  filter: brightness(0.8);
+  border-radius: 2px;
+  border: 1px solid white;
+}
+
+.mapContainer:hover {
+  cursor: pointer;
+}

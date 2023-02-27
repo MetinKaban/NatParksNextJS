@@ -1,0 +1,130 @@
+.container {
+  /* width: 85%; */
+  margin: auto;
+  margin-top: -50px;
+  margin-bottom: 100px;
+}
+
+.ul {
+  list-style: none;
+  padding-left: 0;
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* overflow-x: hidden; */
+  width: 94.7%;
+}
+
+.itemsContainer {
+  /* transform: translateX(100%);
+  animation: moveticker 186s linear infinite; */
+  /* border: 1px white solid;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px white solid;
+  border-radius: 6px;
+  padding: 15px; */
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.li {
+  height: 400px;
+  width: 325px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-right: 5px;
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.liVisited {
+  height: 400px;
+  width: 325px;
+  border-radius: 6px;
+  /* border: 1px solid black; */
+  /* background-color: rgb(171, 171, 158); */
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-right: 5px;
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.liCond {
+  display: none;
+}
+
+.li:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  transition: 0.3s;
+  /* filter: opacity(0.9); */
+}
+.liVisited:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  transition: 0.3s;
+  /* filter: opacity(0.9); */
+}
+
+
+.smallimg {
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 5px;
+  width: 315px;
+  height: 300px;
+  margin: auto;
+  filter: blur(0.6px) opacity(0.95) brightness(0.9);
+}
+
+.smallimg:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186);
+  filter: brightness(1);
+}
+
+.imgtextContainer {
+  position: relative;
+  text-align: center;
+  
+}
+
+.cartText {
+  position: absolute;
+  color: white;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* @keyframes moveticker {
+  0% {
+    transform: translateX(0px);
+  }
+
+  100% {
+    transform: translateX(-17875px);
+  }
+
+  0% {
+    transform: translateX(0px);
+  }
+} */

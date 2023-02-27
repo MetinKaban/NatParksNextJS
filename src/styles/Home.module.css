@@ -1,0 +1,17 @@
+.parkDetailContainer {
+  width: 100%;
+}
+
+.imgContainer {
+  width: 100%;
+  /* margin-top: -100px; */
+  /* position: absolute;
+  top: 80px; */
+  z-index: -1;
+}
+
+.parkName {
+  color: rgb(184, 184, 184);
+  text-align: center;
+  margin-top: 30px;
+}

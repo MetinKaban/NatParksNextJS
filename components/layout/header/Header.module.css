@@ -1,0 +1,44 @@
+.container {
+  height: 100px;
+  background-color: rgb(154, 70, 70, 0.01);
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 95%;
+  margin: auto;
+  /* margin-bottom: 50px; */
+  /* padding-top: 50px; */
+}
+
+.left {
+  margin-left: 20px;
+}
+.right {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.eachSection {
+  margin-right: 10px;
+  padding: 5px 5px;
+}
+
+.eachSection:hover {
+  cursor: pointer;
+  /* background-color: rgb(177, 105, 105); */
+  padding: 16.5px 15px;
+  transition: 0.3s;
+  font-size: 18px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.link:focus {
+  text-decoration: underline;
+  color: gray;
+}

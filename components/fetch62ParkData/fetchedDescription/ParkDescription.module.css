@@ -1,0 +1,55 @@
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 79%;
+  height: auto;
+  background-color: #131212;
+  border: 3px solid black;
+  border-radius: 10px;
+  box-shadow: 24;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bottomContainer {
+  display: flex;
+  height: 400px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 35px;
+  margin-bottom: 5px;
+}
+
+.descriptionP {
+  width: 70%;
+  margin: auto;
+  font-size: 18px;
+  color: white;
+}
+
+.img {
+  margin: auto;
+  /* border: 1px gray solid; */
+  width: 50%;
+  height: 400px;
+  /* margin-bottom: 20px;
+  margin-top: 20px; */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: rgb(47, 47, 47);
+  /* opacity: 0.5; */
+}
+
+.map {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px gray solid; */
+}
