@@ -1,6 +1,5 @@
-import Fetch62ParkData from "components/fetch62ParkData/Fetch62ParkData";
-
+import FetchAllParks from "components/fetchAllParks/FetchAllParks";
 
 export default function Home() {
-  return <Fetch62ParkData />;
+  return <FetchAllParks />;
 }

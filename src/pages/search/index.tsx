@@ -1,4 +1,4 @@
-import FetchByName from "../../../components/fetchByName/FetchByName";
+import FetchByName from "../../../components/utilityComponents/fetchByName/FetchByName";
 
 const Search = () => {
   return <FetchByName />;

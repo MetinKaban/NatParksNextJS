@@ -3,16 +3,16 @@ import VideoScreen from "../utilityComponents/videoScreen/VideoScreen";
 import MidDrawer from "../utilityComponents/midDrawer/MidDrawer";
 import ParkCarts from "../utilityComponents/parkCarts/ParkCarts";
 import ParkDescription from "../utilityComponents/fetchedDescription/ParkDescription";
-import styles from "./FetchData.module.css";
+import styles from "../fetch62ParkData/FetchData.module.css";
 import Modal from "@mui/material/Modal";
 import HourglassBottomSharpIcon from "@mui/icons-material/HourglassBottomSharp";
 
-const Fetch62ParkData = () => {
+const FetchAllParks = () => {
   const [parks, setParks] = useState<any[]>([]);
   const [cond, setCond] = useState<number[]>([]);
   const [visited, setVisited] = useState<number[]>([]);
-  const [userSearchedPark, setUserSearchedPark] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userSearchedPark, setUserSearchedPark] = useState<string>("");
 
   let fetchedData = [];
 
@@ -25,15 +25,7 @@ const Fetch62ParkData = () => {
       const data = await response.json();
       fetchedData = data.data;
 
-      setParks(
-        fetchedData
-          .filter(
-            (e: any) =>
-              e.fullName.includes("National Park") ||
-              e.fullName.includes("Redwood National and State Parks")
-          )
-          .filter((e: any) => !e.fullName.includes("Wolf"))
-      );
+      setParks(fetchedData);
       setIsLoading(false);
     };
 
@@ -57,8 +49,8 @@ const Fetch62ParkData = () => {
     <>
       <VideoScreen />
       {isLoading ? (
-        <div style={{ textAlign: "center" }}>
-          <HourglassBottomSharpIcon sx={{ fontSize: "30px", color: "white" }} />
+        <div style={{textAlign:'center'}}>
+          <HourglassBottomSharpIcon sx={{fontSize:'30px', color:'white'}} />
         </div>
       ) : (
         <>
@@ -105,4 +97,4 @@ const Fetch62ParkData = () => {
   );
 };
 
-export default Fetch62ParkData;
+export default FetchAllParks;

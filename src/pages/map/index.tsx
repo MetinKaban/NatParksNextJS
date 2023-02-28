@@ -1,4 +1,4 @@
-import LoadMap from "components/loadMap/LoadMap";
+import LoadMap from "components/utilityComponents/loadMap/LoadMap";
 
 const MapPage = ({ parks }: any) => {
   return (

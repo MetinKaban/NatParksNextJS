@@ -1,5 +1,5 @@
 .container {
-  height: 100px;
+  height: 95px;
   background-color: rgb(154, 70, 70, 0.01);
   color: white;
   display: flex;
@@ -40,5 +40,5 @@
 
 .link:focus {
   text-decoration: underline;
-  color: gray;
+  /* color: gray; */
 }

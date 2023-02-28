@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Rating } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
-import styles from "../FetchData.module.css";
+import styles from "./ParkCarts.module.css";
 
 type Props = {
   idx: number;

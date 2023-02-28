@@ -13,13 +13,17 @@ const Header = () => {
   return (
     <header className={styles.container}>
       <div className={styles.left}>
-        <h1>National Parks</h1>
+        {/* <Link href="/"> */}
+          <h1>National Parks</h1>
+        {/* </Link> */}
       </div>
       <div className={styles.right}>
-        <div className={styles.eachSection}>
-          <h5>All Parks</h5>
-        </div>
         <Link href="/" className={styles.link}>
+          <div className={styles.eachSection}>
+            <h5>All Parks</h5>
+          </div>
+        </Link>
+        <Link href="/famous" className={styles.link}>
           <div className={styles.eachSection}>
             <h5>62 National Parks</h5>
           </div>
@@ -29,7 +33,7 @@ const Header = () => {
             <h5>Search a Park by Name</h5>
           </div>
         </Link>
-        <Link href="./map" className={styles.link}>
+        <Link href="/map" className={styles.link}>
           <div className={styles.eachSection}>
             <h5>Parks Map</h5>
           </div>

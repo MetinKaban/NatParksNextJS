@@ -6,6 +6,7 @@ import {
   InfoWindowF,
   MarkerClustererF,
 } from "@react-google-maps/api";
+import cluster from "cluster";
 
 import styles from "./Loadmap.module.css";
 
