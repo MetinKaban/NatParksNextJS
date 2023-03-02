@@ -4,14 +4,12 @@ import ParkSuperDetails from "components/utilityComponents/parkSuperDetails/Park
 import { Button, Modal } from "@mui/material";
 import styles from "../../styles/Home.module.css";
 
-const ParkDetails = ({ park }: any) => {
+const ParkDetails = ({ park, amenity }: any) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState<any>({
     isOpen: false,
     subject: "",
   });
-
-  const keywords = ["description"];
 
   return (
     <div className={styles.parkDetailContainer}>
@@ -34,8 +32,20 @@ const ParkDetails = ({ park }: any) => {
             description + directions
           </div>
           <div className={styles.box}>alerts</div>
-          <div className={styles.box}>activities</div>
-          <div className={styles.box}>amenities</div>
+          <div
+            className={styles.box}
+            onClick={() =>
+              setShowModal({ isOpen: true, subject: "activities" })
+            }
+          >
+            activities
+          </div>
+          <div
+            className={styles.box}
+            onClick={() => setShowModal({ isOpen: true, subject: "amenities" })}
+          >
+            amenities
+          </div>
         </div>
         <div className={styles.infoContainerRight}>
           <div
@@ -50,6 +60,7 @@ const ParkDetails = ({ park }: any) => {
         <Modal open={showModal.isOpen} aria-labelledby={park.code}>
           <ParkSuperDetails
             park={park}
+            amenity={amenity}
             setShowModal={setShowModal}
             modalSubject={showModal.subject}
           />
@@ -80,12 +91,29 @@ export async function getServerSideProps(context: any) {
     }
   );
   const data = await res.json();
-
   const park = data.data[0];
+
+  const getAmenities = await fetch(
+    `https://developer.nps.gov/api/v1/amenities?q=%22${code}%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda`,
+    {
+      method: "GET",
+      headers: {
+        // update with your user-agent
+        "User-Agent":
+          "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+        Accept: "application/json; charset=UTF-8",
+      },
+    }
+  );
+
+  const amenityData = await getAmenities.json();
+  // console.log(data)
+  const amenity = amenityData.data.map((a: any) => a.name);
 
   return {
     props: {
       park: park,
+      amenity: amenity,
     },
   };
 }

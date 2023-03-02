@@ -1,28 +1,58 @@
+import { PieChart } from "@mui/icons-material";
 import styles from "./parkSuperDetails.module.css";
 
 type Props = {
   park: any;
   setShowModal: any;
-  modalSubject: string
+  modalSubject: string;
+  amenity: string[];
 };
 
-const ParkSuperDetails = ({ park, setShowModal, modalSubject }: Props) => {
+const ParkSuperDetails = ({
+  park,
+  amenity,
+  setShowModal,
+  modalSubject,
+}: Props) => {
+  let content = <div></div>;
 
-  let content = "";
-
-  if(modalSubject === "description") {
-    
+  if (modalSubject === "description") {
+    content = (
+      <div>
+        <div>{park.description}</div>
+        <div>{park.directionsInfo}</div>
+      </div>
+    );
+  }
+  if (modalSubject === "activities") {
+    content = (
+      <ul style={{ listStyle: "none", paddingLeft: "0" }}>
+        {park.activities.map((act: any, idx: number) => (
+          <li key={idx}>{act.name}</li>
+        ))}
+      </ul>
+    );
   }
 
+  let code = park.parkCode;
 
+  if (modalSubject === "amenities") {
+    content = (
+      <ul style={{ listStyle: "none", paddingLeft: "0" }}>
+        {amenity.map((a, idx) => (
+          <li key={idx}>{a}</li>
+        ))}
+      </ul>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <div
         className={styles.smallContainer}
-        onClick={() => setShowModal({isOpen:false, subject: ""})}
+        onClick={() => setShowModal({ isOpen: false, subject: "" })}
       >
-        {park.description}
+        {content}
       </div>
       {/* <button
         onClick={() => {

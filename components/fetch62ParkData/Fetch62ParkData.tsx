@@ -62,7 +62,7 @@ const Fetch62ParkData = () => {
         </div>
       ) : (
         <>
-          <MidDrawer setUserSearchedPark={setUserSearchedPark} />
+          <MidDrawer setUserSearchedPark={setUserSearchedPark} visited={visited}/>
           <div className={styles.container}>
             <ul className={styles.ul}>
               <div className={styles.itemsContainer}>

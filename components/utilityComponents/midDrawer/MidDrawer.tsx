@@ -6,15 +6,12 @@ import styles from "./MidDrawer.module.css";
 
 type Props = {
   setUserSearchedPark: any;
-}
+  visited: number[];
+};
 
-
-const MidDrawer = ({
-  setUserSearchedPark,
-}: Props) => {
-
+const MidDrawer = ({ setUserSearchedPark, visited }: Props) => {
   const searchedParkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserSearchedPark(e.target.value)
+    setUserSearchedPark(e.target.value);
   };
 
   return (
@@ -30,6 +27,9 @@ const MidDrawer = ({
           fontSize="large"
           sx={{ paddingRight: "25px" }}
         />
+      </div>
+      <div className={styles.visitedNo}>
+        <h3 style={{ color: "white" }}>{`${visited.length} / 62`}</h3>
       </div>
     </div>
   );
