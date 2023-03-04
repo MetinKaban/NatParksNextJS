@@ -10,6 +10,7 @@ type Props = {
 };
 
 const MidDrawer = ({ setUserSearchedPark, visited }: Props) => {
+  const [selectPopup, setSelectPopup] = useState("")
   const searchedParkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserSearchedPark(e.target.value);
   };
