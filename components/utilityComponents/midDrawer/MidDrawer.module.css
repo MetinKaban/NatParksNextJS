@@ -1,13 +1,14 @@
 .container {
-  width: 100%;
+  width: 95%;
   height: 80px;
-  /* background-color: gray; */
   margin-top: -100px;
   margin-bottom: 50px;
-  text-align: center;
+  margin-left: 35px;
+  /* text-align: center; */
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  /* margin: auto; */
   
   
 }
@@ -22,8 +23,17 @@
   margin: auto;
 }
 
-.visitedNo {
+.left {
+  display: flex;
+  align-items: center;
+  
+  border-radius: 12px;
+  margin: auto;
+  
+}
+
+/* .visitedNo {
   display: flex;
   justify-content: flex-start;
   width: 5%;
-}
+} */

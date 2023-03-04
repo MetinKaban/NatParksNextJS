@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { OutlinedInput } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
+import PopUpMenu from "./PopUpMenu";
 import styles from "./MidDrawer.module.css";
 
 type Props = {
@@ -16,6 +16,12 @@ const MidDrawer = ({ setUserSearchedPark, visited }: Props) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.left}>
+        <PopUpMenu />
+      </div>
+      <div className={styles.left}>
+        <PopUpMenu />
+      </div>
       <div className={styles.intContainer}>
         <OutlinedInput
           placeholder="Type to search"
@@ -29,7 +35,7 @@ const MidDrawer = ({ setUserSearchedPark, visited }: Props) => {
         />
       </div>
       <div className={styles.visitedNo}>
-        <h3 style={{ color: "white" }}>{`${visited.length} / 62`}</h3>
+        {/* <h3 style={{ color: "white" }}>{`${visited.length} / 62`}</h3> */}
       </div>
     </div>
   );
