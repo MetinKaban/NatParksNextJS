@@ -4,7 +4,7 @@ import ParkSuperDetails from "components/utilityComponents/parkSuperDetails/Park
 import { Button, Modal } from "@mui/material";
 import styles from "../../styles/Home.module.css";
 
-const ParkDetails = ({ park, amenity }: any) => {
+const ParkDetails = ({ park, amenity, weather }: any) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState<any>({
     isOpen: false,
@@ -107,13 +107,35 @@ export async function getServerSideProps(context: any) {
   );
 
   const amenityData = await getAmenities.json();
-  // console.log(data)
   const amenity = amenityData.data.map((a: any) => a.name);
+
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "9a1ee9915fmsh2096a8812352942p1d4c10jsn0d2f4bd545c9",
+      "X-RapidAPI-Host": "visual-crossing-weather.p.rapidapi.com",
+    },
+  };
+
+  const lat = Math.round(park.latitude)
+  const lon = Math.round(park.longitude)
+
+  // const getWeather = await fetch(
+  //   `https://visual-crossing-weather.p.rapidapi.com/forecast?aggregateHours=24&location=${lat}${lon}&contentType=csv&unitGroup=us&shortColumnNames=0`,
+  //   options
+  // );
+  
+  // const weatherData = await getWeather.json();
+  // const weather = weatherData;
+
+
+    // console.log(weather)
 
   return {
     props: {
       park: park,
       amenity: amenity,
+      // weather: weather
     },
   };
 }

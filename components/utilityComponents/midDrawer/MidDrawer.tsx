@@ -10,18 +10,28 @@ type Props = {
 };
 
 const MidDrawer = ({ setUserSearchedPark, visited }: Props) => {
-  const [selectPopup, setSelectPopup] = useState("")
+  const [selectPopup, setSelectPopup] = useState("");
   const searchedParkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserSearchedPark(e.target.value);
   };
 
+  const activities = {
+    name: "activities",
+    features: ["camping", "hiking", "kayaking", "biking"],
+  };
+  const amenities = {
+    name: "amenities",
+    features: ["restrooms", "camp site", "parking", "gift shop"],
+  };
+  // const amenities = ["restrooms", "camp site", "parking", "gift shop"];
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <PopUpMenu />
+        <PopUpMenu items={activities} />
       </div>
       <div className={styles.left}>
-        <PopUpMenu />
+        <PopUpMenu items={amenities} />
       </div>
       <div className={styles.intContainer}>
         <OutlinedInput
