@@ -6,10 +6,10 @@ import styles from "./MidDrawer.module.css";
 
 type Props = {
   setUserSearchedPark: any;
-  visited: number[];
+  // visited: number[];
 };
 
-const MidDrawer = ({ setUserSearchedPark, visited }: Props) => {
+const MidDrawer = ({ setUserSearchedPark }: Props) => {
   const [selectPopup, setSelectPopup] = useState("");
   const searchedParkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserSearchedPark(e.target.value);

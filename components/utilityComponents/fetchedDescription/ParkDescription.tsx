@@ -47,7 +47,7 @@ const ParkDescription = ({ e, descriptionHandler, idx }: Props) => {
           <SmallMap e={e} />
         </div>
       </div>
-      <Link href={{ pathname: `/famous/${e.fullName}`, query: { code: e.parkCode } }}>
+      <Link href={{ pathname: `/${e.fullName}`, query: { code: e.parkCode } }}>
         <Button
           variant="contained"
           // onClick={() => descriptionHandler(idx)}

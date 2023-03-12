@@ -49,11 +49,14 @@ const ParkCarts = ({
             className={styles.smallimg}
           />
           <p className={styles.cartText}>
-            {e.fullName}, {e.states}
+            {e.fullName},{" "}
+            {e.states.length > 8
+              ? e.states.split("").slice(0, 8).join("")
+              : e.states}
           </p>
         </div>
       </div>
-      {!visited.includes(idx) ? (
+      {/* {!visited.includes(idx) ? (
         <Button
           variant="contained"
           onClick={() => visitHandler(idx)}
@@ -85,7 +88,7 @@ const ParkCarts = ({
             marginTop: "4px",
           }}
         />
-      )}
+      )} */}
     </div>
   );
 };

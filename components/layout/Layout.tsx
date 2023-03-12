@@ -1,7 +1,9 @@
 import Header from "components/layout/header/Header";
 import React from "react";
 
+
 const Layout = (props: any) => {
+  
   return (
     <div>
       <Header />

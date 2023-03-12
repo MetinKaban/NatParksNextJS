@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import ParkSuperDetails from "components/utilityComponents/parkSuperDetails/ParkSuperDetails";
 import { Button, Modal } from "@mui/material";
-import styles from "../../styles/Home.module.css";
+import styles from "../styles/Home.module.css";
 
 const ParkDetails = ({ park, amenity, weather }: any) => {
   const router = useRouter();
