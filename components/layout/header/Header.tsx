@@ -38,6 +38,11 @@ const Header = () => {
             <h5>Parks Map</h5>
           </div>
         </Link>
+        <Link href="/login" className={styles.link}>
+          <div className={styles.eachSection}>
+            <h5>Login</h5>
+          </div>
+        </Link>
         <div className={styles.eachSection} onClick={drawerHandler}>
           <h5>=</h5>
           <Drawer anchor="right" open={drawerState}>
