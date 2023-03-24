@@ -1,22 +1,19 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import styles from "./Login.module.css";
+import styles from "./Signup.module.css";
 
-type Props = {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const Login = ({setIsLoggedIn} : Props) => {
+const Signup = ({ onAddUser }: any) => {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailTouched, setEmailTouched] = useState(false);
-  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [passwordTwo, setPasswordTwo] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [userNotFound, setUserNotFound] = useState(false);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [passoneTouched, setPassoneTouched] = useState(false);
+  const [passtwoTouched, setPasstwoTouched] = useState(false);
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -24,22 +21,19 @@ const Login = ({setIsLoggedIn} : Props) => {
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
   };
-
-  const unfoundUserFocusHandler = () => {
-    if(userNotFound) {
-      setUserNotFound(false)
-    }
-  }
-
+  const handlePasswordTwoChange = (e: any) => {
+    setPasswordTwo(e.target.value);
+  };
   const emailRgx = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   const emailCond = emailRgx.test(email);
-  const passwordCond = password.length > 7;
+  const firstPasswordCond = password.length > 7;
 
   const submitHandler = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    if (!passwordCond || !emailCond) {
+    if (!firstPasswordCond || !emailCond) {
       setEmailTouched(true);
-      setPasswordTouched(true);
+      setPassoneTouched(true);
+      setPasstwoTouched(true);
       return;
     }
 
@@ -48,7 +42,7 @@ const Login = ({setIsLoggedIn} : Props) => {
       password: password,
     };
 
-    const response = await fetch("/api/auth-user", {
+    const response = await fetch("/api/new-user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,23 +50,14 @@ const Login = ({setIsLoggedIn} : Props) => {
       body: JSON.stringify(userInfo),
     });
 
-    const data = await response.json();
-
-    if (data.result.length) {
-      console.log("success");
-      setIsLoggedIn(true)
-      router.push("/");
-    } else {
-      console.log("fail");
-      setUserNotFound(true);
-    }
-
-    
-    
     setEmail("");
     setPassword("");
+    setPasswordTwo("");
     setEmailTouched(false);
-    setPasswordTouched(false);
+    setPassoneTouched(false);
+    setPasstwoTouched(false);
+
+    router.push("/login");
   };
 
   return (
@@ -85,14 +70,13 @@ const Login = ({setIsLoggedIn} : Props) => {
             type="email"
             onChange={handleEmailChange}
             onBlur={() => setEmailTouched(true)}
-            onFocus={unfoundUserFocusHandler}
             value={email}
             style={{
               backgroundColor: emailTouched && !emailCond ? "salmon" : "",
             }}
           />
           {emailTouched && !emailCond && (
-            <p className={styles.par}>plase provide a valid email</p>
+            <p className={styles.p}>plase provide a valid email</p>
           )}
         </div>
         <div className={styles.area} style={{ marginLeft: "22px" }}>
@@ -102,12 +86,11 @@ const Login = ({setIsLoggedIn} : Props) => {
               className={styles.input}
               type={!showPassword ? "password" : "text"}
               onChange={handlePasswordChange}
-              onBlur={() => setPasswordTouched(true)}
-              onFocus={unfoundUserFocusHandler}
+              onBlur={() => setPassoneTouched(true)}
               value={password}
               style={{
                 backgroundColor:
-                  passwordTouched && !passwordCond ? "salmon" : "",
+                  passoneTouched && !firstPasswordCond ? "salmon" : "",
               }}
             />
             <div
@@ -117,29 +100,53 @@ const Login = ({setIsLoggedIn} : Props) => {
               <VisibilityIcon sx={{ fontSize: "large", marginLeft: "5px" }} />
             </div>
           </div>
-          {passwordTouched && !passwordCond && (
-            <p className={styles.par}>password must be 8 chars long</p>
+          {passoneTouched && !firstPasswordCond && (
+            <p className={styles.p}>
+              min password length must be 8 charachters
+            </p>
           )}
         </div>
-        {userNotFound && (
-          <p className={styles.par}>
-            user not found. you can sign up using the link below...
-          </p>
-        )}
+        <div className={styles.area} style={{ marginLeft: "22px" }}>
+          <label htmlFor="Re-enter Password">Re-enter Password</label>
+          <div style={{ display: "flex" }}>
+            <input
+              className={styles.input}
+              type={!showPassword ? "password" : "text"}
+              onChange={handlePasswordTwoChange}
+              onBlur={() => setPasstwoTouched(true)}
+              value={passwordTwo}
+              style={{
+                backgroundColor:
+                  passtwoTouched && passwordTwo !== password ? "salmon" : "",
+              }}
+            />
+            <div
+              style={{ display: "flex", alignItems: "center" }}
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              <VisibilityIcon sx={{ fontSize: "large", marginLeft: "5px" }} />
+            </div>
+          </div>
+          {passwordTwo !== password && (
+            <p className={styles.p}>passwords must match</p>
+          )}
+        </div>
         <div className={styles.area}>
           <button className={styles.btn} type="submit">
-            Login
+            Sign Up
           </button>
         </div>
-        Don't have an account?
-        <span>
-          <Link href={"/signup"}>
-            <div className={styles.p}>Create here</div>
-          </Link>
-        </span>
+        <div style={{ paddingBottom: "10px" }}>
+          Already have an account.{" "}
+          <span>
+            <Link href={"/login"} style={{ color: "white" }}>
+              Sign in
+            </Link>
+          </span>
+        </div>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

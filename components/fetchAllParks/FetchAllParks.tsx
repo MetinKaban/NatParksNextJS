@@ -13,7 +13,7 @@ const FetchAllParks = () => {
   const [visited, setVisited] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userSearchedPark, setUserSearchedPark] = useState<string>("");
-
+  
   let fetchedData = [];
 
   useEffect(() => {

@@ -31,15 +31,7 @@ const ParkCarts = ({
   };
 
   return (
-    <div
-      className={
-        visited.includes(idx)
-          ? styles.liVisited
-          : cond.includes(idx)
-          ? styles.liCond
-          : styles.li
-      }
-    >
+    <div className={styles.li}>
       <div onClick={() => descriptionHandler(idx)}>
         <div className={styles.imgtextContainer}>
           <img

@@ -3,19 +3,28 @@ import Link from "next/link";
 import styles from "./Header.module.css";
 import { Drawer } from "@mui/material";
 
-const Header = () => {
+type Props = {
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Header = ({ isLoggedIn, setIsLoggedIn }: Props) => {
   const [drawerState, setDrawerState] = useState<boolean>(false);
 
   const drawerHandler = () => {
     setDrawerState((prev) => !prev);
   };
 
+  const logoutHandler = () => {
+    if (isLoggedIn) {
+      setIsLoggedIn(false);
+    }
+  };
+
   return (
     <header className={styles.container}>
       <div className={styles.left}>
-        {/* <Link href="/"> */}
-          <h1>National Parks</h1>
-        {/* </Link> */}
+        <h1>National Parks</h1>
       </div>
       <div className={styles.right}>
         <Link href="/" className={styles.link}>
@@ -40,7 +49,7 @@ const Header = () => {
         </Link>
         <Link href="/login" className={styles.link}>
           <div className={styles.eachSection}>
-            <h5>Login</h5>
+            <h5 onClick={logoutHandler}>{isLoggedIn ? "Logout" : "Login"}</h5>
           </div>
         </Link>
         <div className={styles.eachSection} onClick={drawerHandler}>
