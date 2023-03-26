@@ -140,7 +140,7 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-{
+// {
   /* <Modal
 open={cond.includes(idx)}
 aria-labelledby={idx.toString()}
@@ -151,4 +151,4 @@ aria-labelledby={idx.toString()}
   idx={idx}
 />
 </Modal> */
-}
+// }

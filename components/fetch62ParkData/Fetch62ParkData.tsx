@@ -6,44 +6,58 @@ import ParkDescription from "../utilityComponents/fetchedDescription/ParkDescrip
 import styles from "./FetchData.module.css";
 import Modal from "@mui/material/Modal";
 import HourglassBottomSharpIcon from "@mui/icons-material/HourglassBottomSharp";
+import FetchParkFunc from "components/aaaa/FetchParkFunc";
 
-const Fetch62ParkData = () => {
-  const [parks, setParks] = useState<any[]>([]);
+type Props = {
+  parks: string[];
+  isLoading: boolean
+};
+
+const Fetch62ParkData = ({ parks, isLoading }: Props) => {
+  // const [parks, setParks] = useState<any[]>([]);
   const [cond, setCond] = useState<number[]>([]);
   const [visited, setVisited] = useState<number[]>([]);
   const [userSearchedPark, setUserSearchedPark] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  let fetchedData = [];
+  // const trying = FetchParkFunc()
+  // console.log(trying)
+  // useEffect(() => {
+  //   const fetchItems = async () => {
+  //     setIsLoading(true);
+  //     const response = await fetch(
+  //       "https://developer.nps.gov/api/v1/parks?parkCode=&stateCode=&limit=200&q=%22national%20park%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda"
+  //     );
+  //     const data = await response.json();
+  //     fetchedData = data.data;
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      setIsLoading(true);
-      const response = await fetch(
-        "https://developer.nps.gov/api/v1/parks?parkCode=&stateCode=&limit=200&q=%22national%20park%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda"
-      );
-      const data = await response.json();
-      fetchedData = data.data;
+  //     setParks(
+  //       fetchedData
+  //         .filter(
+  //           (e: any) =>
+  //             e.fullName.includes("National Park") ||
+  //             e.fullName.includes("Redwood National and State Parks")
+  //         )
+  //         .filter((e: any) => !e.fullName.includes("Wolf"))
+  //     );
+  //     setIsLoading(false);
+  //   };
 
-      setParks(
-        fetchedData
-          .filter(
-            (e: any) =>
-              e.fullName.includes("National Park") ||
-              e.fullName.includes("Redwood National and State Parks")
-          )
-          .filter((e: any) => !e.fullName.includes("Wolf"))
-      );
-      setIsLoading(false);
-    };
-
-    fetchItems();
-  }, []);
+  //   fetchItems();
+  // }, []);
 
   // const parkNames = parks.map((park) => park.fullName);
 
+  const filteredParks = parks
+    .filter(
+      (e: any) =>
+        e.fullName.includes("National Park") ||
+        e.fullName.includes("Redwood National and State Parks")
+    )
+    .filter((e: any) => !e.fullName.includes("Wolf"));
+
   const descriptionHandler = (idx: number) => {
-    if (visited.includes(idx)) return;
+    // if (visited.includes(idx)) return;
     if (cond.includes(idx)) {
       setCond((prev) =>
         prev.filter((e) => cond.indexOf(e) !== cond.indexOf(idx))
@@ -66,13 +80,13 @@ const Fetch62ParkData = () => {
           <div className={styles.container}>
             <ul className={styles.ul}>
               <div className={styles.itemsContainer}>
-                {parks
-                  .filter((p) =>
+                {filteredParks
+                  .filter((p: any) =>
                     p.name
                       .toLowerCase()
                       .includes(userSearchedPark.toLowerCase())
                   )
-                  .map((e: any, idx) => (
+                  .map((e: any, idx: number) => (
                     <li key={idx}>
                       <ParkCarts
                         e={e}

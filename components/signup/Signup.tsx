@@ -7,13 +7,14 @@ import styles from "./Signup.module.css";
 const Signup = ({ onAddUser }: any) => {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordTwo, setPasswordTwo] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [emailTouched, setEmailTouched] = useState(false);
-  const [passoneTouched, setPassoneTouched] = useState(false);
-  const [passtwoTouched, setPasstwoTouched] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordTwo, setPasswordTwo] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [emailTouched, setEmailTouched] = useState<boolean>(false);
+  const [passoneTouched, setPassoneTouched] = useState<boolean>(false);
+  const [passtwoTouched, setPasstwoTouched] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -23,6 +24,11 @@ const Signup = ({ onAddUser }: any) => {
   };
   const handlePasswordTwoChange = (e: any) => {
     setPasswordTwo(e.target.value);
+  };
+  const handleErrorFocus = () => {
+    if (error) {
+      setError(false);
+    }
   };
   const emailRgx = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   const emailCond = emailRgx.test(email);
@@ -37,27 +43,33 @@ const Signup = ({ onAddUser }: any) => {
       return;
     }
 
-    const userInfo = {
-      email: email,
-      password: password,
-    };
+    // const userInfo = {
+    //   em: email,
+    //   pw: password,
+    // };
 
     const response = await fetch("/api/new-user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userInfo),
+      body: JSON.stringify({ em: email, pw: password }),
     });
 
-    setEmail("");
-    setPassword("");
-    setPasswordTwo("");
-    setEmailTouched(false);
-    setPassoneTouched(false);
-    setPasstwoTouched(false);
-
-    router.push("/login");
+    const data = await response.json();
+    console.log(data);
+    if (data.message === 409) {
+      setError(true);
+      return;
+    } else {
+      setEmail("");
+      setPassword("");
+      setPasswordTwo("");
+      setEmailTouched(false);
+      setPassoneTouched(false);
+      setPasstwoTouched(false);
+      router.push("/login");
+    }
   };
 
   return (
@@ -70,6 +82,7 @@ const Signup = ({ onAddUser }: any) => {
             type="email"
             onChange={handleEmailChange}
             onBlur={() => setEmailTouched(true)}
+            onFocus={handleErrorFocus}
             value={email}
             style={{
               backgroundColor: emailTouched && !emailCond ? "salmon" : "",
@@ -77,6 +90,12 @@ const Signup = ({ onAddUser }: any) => {
           />
           {emailTouched && !emailCond && (
             <p className={styles.p}>plase provide a valid email</p>
+          )}
+          {error && (
+            <p className={styles.p}>
+              This email is already in use. Please provide a different email or
+              login using the link below.
+            </p>
           )}
         </div>
         <div className={styles.area} style={{ marginLeft: "22px" }}>

@@ -31,7 +31,6 @@ const Map = ({ markerPos }: marker) => {
       setSelected((prev) =>
         prev.filter((e) => selected.indexOf(e) !== selected.indexOf(idx))
       );
-
     } else {
       setSelected([idx]);
     }
@@ -44,27 +43,30 @@ const Map = ({ markerPos }: marker) => {
       mapContainerClassName={styles.mapContainer}
     >
       <MarkerClustererF maxZoom={6}>
-        {(clusterer) => (
-          <>
-            {markerPos.map((e: any, idx: number) => (
-              <MarkerF
-                key={idx}
-                position={{ lat: +e.latitude, lng: +e.longitude }}
-                onClick={() => showhideInfohandler(idx)}
-                clusterer={clusterer}
-              >
-                {selected.includes(idx) && (
-                  <InfoWindowF
-                    position={{ lat: +e.latitude, lng: +e.longitude }}
-                    onCloseClick={() => showhideInfohandler(idx)}
-                  >
-                    <div>{e.fullName}</div>
-                  </InfoWindowF>
-                )}
-              </MarkerF>
-            ))}
-          </>
-        )}
+        {(clusterer) => {
+          console.log("loading clusters");
+          return (
+            <>
+              {markerPos.map((e: any, idx: number) => (
+                <MarkerF
+                  key={idx}
+                  position={{ lat: +e.latitude, lng: +e.longitude }}
+                  onClick={() => showhideInfohandler(idx)}
+                  clusterer={clusterer}
+                >
+                  {selected.includes(idx) && (
+                    <InfoWindowF
+                      position={{ lat: +e.latitude, lng: +e.longitude }}
+                      onCloseClick={() => showhideInfohandler(idx)}
+                    >
+                      <div>{e.fullName}</div>
+                    </InfoWindowF>
+                  )}
+                </MarkerF>
+              ))}
+            </>
+          );
+        }}
       </MarkerClustererF>
     </GoogleMap>
   );

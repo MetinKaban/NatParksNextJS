@@ -7,30 +7,36 @@ import styles from "../fetch62ParkData/FetchData.module.css";
 import Modal from "@mui/material/Modal";
 import HourglassBottomSharpIcon from "@mui/icons-material/HourglassBottomSharp";
 
-const FetchAllParks = () => {
-  const [parks, setParks] = useState<any[]>([]);
+type Props = {
+  parks: string[];
+  isLoading: boolean
+};
+
+
+const FetchAllParks = ({parks, isLoading}: Props) => {
   const [cond, setCond] = useState<number[]>([]);
   const [visited, setVisited] = useState<number[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userSearchedPark, setUserSearchedPark] = useState<string>("");
+  // const [parks, setParks] = useState<any[]>([]);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
   
-  let fetchedData = [];
+  // let fetchedData = [];
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      setIsLoading(true);
-      const response = await fetch(
-        "https://developer.nps.gov/api/v1/parks?parkCode=&stateCode=&limit=200&q=%22national%20park%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda"
-      );
-      const data = await response.json();
-      fetchedData = data.data;
+  // useEffect(() => {
+  //   const fetchItems = async () => {
+  //     setIsLoading(true);
+  //     const response = await fetch(
+  //       "https://developer.nps.gov/api/v1/parks?parkCode=&stateCode=&limit=200&q=%22national%20park%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda"
+  //     );
+  //     const data = await response.json();
+  //     fetchedData = data.data;
 
-      setParks(fetchedData);
-      setIsLoading(false);
-    };
+  //     setParks(fetchedData);
+  //     setIsLoading(false);
+  //   };
 
-    fetchItems();
-  }, []);
+  //   fetchItems();
+  // }, []);
 
   // const parkNames = parks.map((park) => park.fullName);
 
@@ -59,12 +65,12 @@ const FetchAllParks = () => {
             <ul className={styles.ul}>
               <div className={styles.itemsContainer}>
                 {parks
-                  .filter((p) =>
+                  .filter((p: any) =>
                     p.name
                       .toLowerCase()
                       .includes(userSearchedPark.toLowerCase())
                   )
-                  .map((e: any, idx) => (
+                  .map((e: any, idx:number) => (
                     <li key={idx}>
                       <ParkCarts
                         e={e}

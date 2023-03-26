@@ -5,18 +5,18 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import styles from "./Login.module.css";
 
 type Props = {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-}
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-const Login = ({setIsLoggedIn} : Props) => {
+const Login = ({ setIsLoggedIn }: Props) => {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailTouched, setEmailTouched] = useState(false);
-  const [passwordTouched, setPasswordTouched] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [userNotFound, setUserNotFound] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [emailTouched, setEmailTouched] = useState<boolean>(false);
+  const [passwordTouched, setPasswordTouched] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [userNotFound, setUserNotFound] = useState<boolean>(false);
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -26,10 +26,10 @@ const Login = ({setIsLoggedIn} : Props) => {
   };
 
   const unfoundUserFocusHandler = () => {
-    if(userNotFound) {
-      setUserNotFound(false)
+    if (userNotFound) {
+      setUserNotFound(false);
     }
-  }
+  };
 
   const emailRgx = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   const emailCond = emailRgx.test(email);
@@ -43,32 +43,23 @@ const Login = ({setIsLoggedIn} : Props) => {
       return;
     }
 
-    const userInfo = {
-      email: email,
-      password: password,
-    };
-
     const response = await fetch("/api/auth-user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userInfo),
+      body: JSON.stringify({ em: email, pw: password }),
     });
 
     const data = await response.json();
 
     if (data.result.length) {
-      console.log("success");
-      setIsLoggedIn(true)
+      setIsLoggedIn(true);
       router.push("/");
     } else {
-      console.log("fail");
       setUserNotFound(true);
     }
 
-    
-    
     setEmail("");
     setPassword("");
     setEmailTouched(false);

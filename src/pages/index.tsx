@@ -1,6 +1,12 @@
 import FetchAllParks from "components/fetchAllParks/FetchAllParks";
 import React from "react";
 
-export default function Home() {
-  return <FetchAllParks />;
+type Props = {
+  parks: any;
+  isLoading: boolean
+}
+
+
+export default function Home({parks, isLoading}: Props) {
+  return <FetchAllParks parks={parks} isLoading={isLoading}/>;
 }
