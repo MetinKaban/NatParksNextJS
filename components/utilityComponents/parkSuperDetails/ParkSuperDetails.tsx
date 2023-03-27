@@ -1,4 +1,3 @@
-import { PieChart } from "@mui/icons-material";
 import styles from "./parkSuperDetails.module.css";
 
 type Props = {

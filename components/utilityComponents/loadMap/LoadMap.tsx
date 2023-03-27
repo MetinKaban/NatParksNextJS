@@ -1,21 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   GoogleMap,
   useLoadScript,
   MarkerF,
   InfoWindowF,
-  MarkerClustererF,
+  MarkerClusterer,
 } from "@react-google-maps/api";
 
 import styles from "./Loadmap.module.css";
 
 const center = { lat: 44, lng: -99 };
 
-type marker = {
+type MarkerType = {
   markerPos: any[];
 };
 
-const LoadMap = ({ markerPos }: marker) => {
+const LoadMap = ({ markerPos }: MarkerType) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDbhc-B23y1r9Ic4ocp4FkLnQ2OnXevrc8",
   });
@@ -23,7 +23,7 @@ const LoadMap = ({ markerPos }: marker) => {
   return <Map markerPos={markerPos} />;
 };
 
-const Map = ({ markerPos }: marker) => {
+const Map = ({ markerPos }: MarkerType) => {
   const [selected, setSelected] = useState<number[]>([]);
 
   const showhideInfohandler = (idx: number) => {
@@ -42,34 +42,60 @@ const Map = ({ markerPos }: marker) => {
       center={center}
       mapContainerClassName={styles.mapContainer}
     >
-      <MarkerClustererF maxZoom={6}>
-        {(clusterer) => {
-          console.log("loading clusters");
-          return (
-            <>
-              {markerPos.map((e: any, idx: number) => (
-                <MarkerF
-                  key={idx}
-                  position={{ lat: +e.latitude, lng: +e.longitude }}
-                  onClick={() => showhideInfohandler(idx)}
-                  clusterer={clusterer}
-                >
-                  {selected.includes(idx) && (
-                    <InfoWindowF
-                      position={{ lat: +e.latitude, lng: +e.longitude }}
-                      onCloseClick={() => showhideInfohandler(idx)}
-                    >
-                      <div>{e.fullName}</div>
-                    </InfoWindowF>
-                  )}
-                </MarkerF>
-              ))}
-            </>
-          );
-        }}
-      </MarkerClustererF>
+      {markerPos.map((e: any, idx: number) => (
+        <MarkerF
+          key={idx}
+          position={{ lat: +e.latitude, lng: +e.longitude }}
+          onClick={() => showhideInfohandler(idx)}
+          onLoad={() => console.log('mattoko')}
+        >
+          {selected.includes(idx) && (
+            <InfoWindowF
+              key={idx}
+              position={{ lat: +e.latitude, lng: +e.longitude }}
+              onCloseClick={() => showhideInfohandler(idx)}
+            >
+              <div className={styles.info}>{e.fullName}</div>
+            </InfoWindowF>
+          )}
+        </MarkerF>
+      ))}
     </GoogleMap>
   );
 };
 
 export default LoadMap;
+
+{
+  /* <MarkerClusterer
+  maxZoom={6}
+  averageCenter={true}
+  // onClick={() => console.log("mattoko")}
+  onLoad={() => console.log("mattoko")}
+  ignoreHidden={true}
+>
+  {(clusterer) => {
+    return (
+      <div>
+        {markerPos.map((e: any, idx: number) => (
+          <Marker
+            key={idx}
+            position={{ lat: +e.latitude, lng: +e.longitude }}
+            onClick={() => showhideInfohandler(idx)}
+            clusterer={clusterer}
+          >
+            {selected.includes(idx) && (
+              <InfoWindow
+                position={{ lat: +e.latitude, lng: +e.longitude }}
+                onCloseClick={() => showhideInfohandler(idx)}
+              >
+                <div>{e.fullName}</div>
+              </InfoWindow>
+            )}
+          </Marker>
+        ))}
+      </div>
+    );
+  }}
+</MarkerClusterer>; */
+}

@@ -1,4 +1,5 @@
 import LoadMap from "components/utilityComponents/loadMap/LoadMap";
+import { useState } from "react";
 
 const MapPage = ({ parks }: any) => {
   return (
@@ -9,8 +10,11 @@ const MapPage = ({ parks }: any) => {
 };
 
 export async function getServerSideProps() {
+  let tempPark = [];
+
   const response = await fetch(
-    "https://developer.nps.gov/api/v1/parks?parkCode=&stateCode=&limit=400&q=%22national%20park%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda",
+    "https://developer.nps.gov/api/v1/parks?parkCode=&stateCode=&limit=200&q=%22national%20park%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda",
+    //  "https://developer.nps.gov/api/v1/parks?parkCode=&stateCode=&limit=200&q=%22national%20park%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda"
     {
       method: "GET",
       headers: {
@@ -23,13 +27,14 @@ export async function getServerSideProps() {
   );
 
   const data = await response.json();
-  const parks = data.data
-    .filter(
-      (e: any) =>
-        e.fullName.includes("National Park") ||
-        e.fullName.includes("Redwood National and State Parks")
-    )
-    .filter((e: any) => !e.fullName.includes("Wolf"));
+  tempPark = data.data.filter(
+    (e: any) =>
+      e.fullName.includes("National Park") ||
+      e.fullName.includes("Redwood National and State Parks")
+  );
+  // .filter((e: any) => !e.fullName.includes("Wolf"));
+
+  const parks = tempPark;
 
   return {
     props: {

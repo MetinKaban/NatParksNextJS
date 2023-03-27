@@ -1,8 +1,8 @@
 import React from "react";
+import { useState, useEffect, useCallback } from "react";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "components/layout/Layout";
-import { useState, useEffect, useCallback } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
