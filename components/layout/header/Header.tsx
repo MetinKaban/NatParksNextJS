@@ -2,6 +2,8 @@ import { useState } from "react";
 import Link from "next/link";
 import styles from "./Header.module.css";
 import { Drawer } from "@mui/material";
+import { firebaseAuth, logout } from "../../../auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 type Props = {
   isLoggedIn: boolean;
@@ -10,14 +12,18 @@ type Props = {
 
 const Header = ({ isLoggedIn, setIsLoggedIn }: Props) => {
   const [drawerState, setDrawerState] = useState<boolean>(false);
+  const [user, loading, error] = useAuthState(firebaseAuth);
 
   const drawerHandler = () => {
     setDrawerState((prev) => !prev);
   };
 
   const logoutHandler = () => {
-    if (isLoggedIn) {
-      setIsLoggedIn(false);
+    if (user) {
+      console.log(user.email)
+      logout()
+    } else {
+      console.log('no one signed in yet')
     }
   };
 
@@ -25,6 +31,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: Props) => {
     <header className={styles.container}>
       <div className={styles.left}>
         <h1>National Parks</h1>
+        <h3>{user ? user.email : "no one signed in"}</h3>
       </div>
       <div className={styles.right}>
         <Link href="/" className={styles.link}>
@@ -49,7 +56,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: Props) => {
         </Link>
         <Link href="/login" className={styles.link}>
           <div className={styles.eachSection}>
-            <h5 onClick={logoutHandler}>{isLoggedIn ? "Logout" : "Login"}</h5>
+            {/* <h5 onClick={logoutHandler}>{isLoggedIn ? "Logout" : "Login"}</h5> */}
+            <h5 onClick={logoutHandler}>{user ? 'Logout' : 'Login'}</h5>
           </div>
         </Link>
         <div className={styles.eachSection} onClick={drawerHandler}>

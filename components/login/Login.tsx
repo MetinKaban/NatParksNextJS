@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth } from "../../auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import styles from "./Login.module.css";
@@ -17,6 +20,7 @@ const Login = ({ setIsLoggedIn }: Props) => {
   const [passwordTouched, setPasswordTouched] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [userNotFound, setUserNotFound] = useState<boolean>(false);
+  const [user, loading, error] = useAuthState(firebaseAuth);
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -43,27 +47,43 @@ const Login = ({ setIsLoggedIn }: Props) => {
       return;
     }
 
-    const response = await fetch("/api/auth-user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ em: email, pw: password }),
-    });
+    // const response = await fetch("/api/auth-user", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ em: email, pw: password }),
+    // });
 
-    const data = await response.json();
+    // const data = await response.json();
 
-    if (data.result.length) {
-      setIsLoggedIn(true);
+    // if (data.result.length) {
+    //   setIsLoggedIn(true);
+    //   router.push("/");
+    // } else {
+    //   setUserNotFound(true);
+    // }
+
+    try {
+      const credential = await signInWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+
+      console.log(credential.user);
+      console.log("success");
       router.push("/");
-    } else {
-      setUserNotFound(true);
+    } catch (error) {
+      console.log(error);
+      console.log("fail");
     }
 
     setEmail("");
     setPassword("");
     setEmailTouched(false);
     setPasswordTouched(false);
+
   };
 
   return (

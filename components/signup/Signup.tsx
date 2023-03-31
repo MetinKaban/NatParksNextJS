@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import styles from "./Signup.module.css";
+import { firebaseAuth } from "../../auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = ({ onAddUser }: any) => {
   const router = useRouter();
@@ -42,34 +44,43 @@ const Signup = ({ onAddUser }: any) => {
       setPasstwoTouched(true);
       return;
     }
+    if (password !== passwordTwo) return;
 
-    // const userInfo = {
-    //   em: email,
-    //   pw: password,
-    // };
-
-    const response = await fetch("/api/new-user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ em: email, pw: password }),
-    });
-
-    const data = await response.json();
-    console.log(data);
-    if (data.message === 409) {
-      setError(true);
-      return;
-    } else {
-      setEmail("");
-      setPassword("");
-      setPasswordTwo("");
-      setEmailTouched(false);
-      setPassoneTouched(false);
-      setPasstwoTouched(false);
-      router.push("/login");
+    try {
+      const credential = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+      console.log(credential);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      console.log("fail");
     }
+
+    // const response = await fetch("/api/new-user", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ em: email, pw: password }),
+    // });
+
+    // const data = await response.json();
+    // console.log(data);
+    // if (data.message === 409) {
+    //   setError(true);
+    //   return;
+    // } else {
+    setEmail("");
+    setPassword("");
+    setPasswordTwo("");
+    setEmailTouched(false);
+    setPassoneTouched(false);
+    setPasstwoTouched(false);
+    //   router.push("/login");
+    // }
   };
 
   return (
