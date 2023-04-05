@@ -9,7 +9,7 @@ import React from "react";
 const Layout = (props: any) => {
   return (
     <div>
-      <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn}/>
+      <Header />
       <main>{props.children}</main>
     </div>
   );

@@ -1,10 +1,9 @@
 import LoadMap from "components/utilityComponents/loadMap/LoadMap";
-import { useState } from "react";
 
 const MapPage = ({ parks }: any) => {
   return (
     <div style={{ marginTop: "40px", width: "100%" }}>
-      <LoadMap />
+      <LoadMap parks={parks} />
     </div>
   );
 };

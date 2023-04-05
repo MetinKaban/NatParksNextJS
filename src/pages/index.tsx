@@ -3,10 +3,9 @@ import React from "react";
 
 type Props = {
   parks: any;
-  isLoading: boolean
-}
+  isLoading: boolean;
+};
 
-
-export default function Home({parks, isLoading}: Props) {
-  return <FetchAllParks parks={parks} isLoading={isLoading}/>;
+export default function Home({ parks, isLoading }: Props) {
+  return <FetchAllParks parks={parks} isLoading={isLoading} />;
 }

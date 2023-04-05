@@ -17,28 +17,6 @@ const FetchAllParks = ({parks, isLoading}: Props) => {
   const [cond, setCond] = useState<number[]>([]);
   const [visited, setVisited] = useState<number[]>([]);
   const [userSearchedPark, setUserSearchedPark] = useState<string>("");
-  // const [parks, setParks] = useState<any[]>([]);
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
-  
-  // let fetchedData = [];
-
-  // useEffect(() => {
-  //   const fetchItems = async () => {
-  //     setIsLoading(true);
-  //     const response = await fetch(
-  //       "https://developer.nps.gov/api/v1/parks?parkCode=&stateCode=&limit=200&q=%22national%20park%22&api_key=0kakgJHyPaKYnKaMNfANT9skeGsL1VtoBhZUJJda"
-  //     );
-  //     const data = await response.json();
-  //     fetchedData = data.data;
-
-  //     setParks(fetchedData);
-  //     setIsLoading(false);
-  //   };
-
-  //   fetchItems();
-  // }, []);
-
-  // const parkNames = parks.map((park) => park.fullName);
 
   const descriptionHandler = (idx: number) => {
     if (visited.includes(idx)) return;

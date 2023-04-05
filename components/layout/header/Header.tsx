@@ -5,12 +5,7 @@ import { Drawer } from "@mui/material";
 import { firebaseAuth, logout } from "../../../auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-type Props = {
-  isLoggedIn: boolean;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Header = ({ isLoggedIn, setIsLoggedIn }: Props) => {
+const Header = () => {
   const [drawerState, setDrawerState] = useState<boolean>(false);
   const [user, loading, error] = useAuthState(firebaseAuth);
 

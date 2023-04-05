@@ -7,11 +7,8 @@ import Link from "next/link";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import styles from "./Login.module.css";
 
-type Props = {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
-const Login = ({ setIsLoggedIn }: Props) => {
+const Login = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState<string>("");
@@ -20,7 +17,7 @@ const Login = ({ setIsLoggedIn }: Props) => {
   const [passwordTouched, setPasswordTouched] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [userNotFound, setUserNotFound] = useState<boolean>(false);
-  const [user, loading, error] = useAuthState(firebaseAuth);
+  // const [user, loading, error] = useAuthState(firebaseAuth);
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);

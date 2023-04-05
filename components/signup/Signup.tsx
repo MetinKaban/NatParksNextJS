@@ -6,7 +6,7 @@ import styles from "./Signup.module.css";
 import { firebaseAuth } from "../../auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const Signup = ({ onAddUser }: any) => {
+const Signup = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState<string>("");

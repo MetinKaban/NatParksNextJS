@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useRef, useCallback } from "react";
 import {
   GoogleMap,
-  Marker,
-  InfoWindow,
-  MarkerClusterer,
+  MarkerF,
+  InfoWindowF,
+  MarkerClustererF,
 } from "@react-google-maps/api";
 import SearchBox from "./SearchBox";
 import styles from "./Map.module.css";
@@ -22,13 +22,6 @@ const Map = ({ markerPos }: MarkerType) => {
 
   const mapRef = useRef<GoogleMap>();
 
-  // const arrayLatLon = markerPos.map((e) => {
-  //   return {
-  //     lat: +e.latitude,
-  //     lng: +e.longitude,
-  //   };
-  // });
-
   const showhideInfohandler = (idx: number) => {
     if (selected.includes(idx)) {
       setSelected((prev) =>
@@ -42,11 +35,11 @@ const Map = ({ markerPos }: MarkerType) => {
     () => ({
       mapId: "301d7e44c6138568",
       disableDefaultUI: true,
-      clickableIcons: false,
+      // clickableIcons: false,
     }),
     []
   );
-  // console.log(arrayLatLon);
+
   const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 
   return (
@@ -68,35 +61,28 @@ const Map = ({ markerPos }: MarkerType) => {
           onLoad={onLoad}
           options={options}
         >
-          {/* <MarkerClusterer>
-            {(clusterer) => (
-              <> */}
           {pos ? (
-            <Marker position={pos} />
+            <MarkerF position={pos} />
           ) : (
             markerPos.map((e: any, idx: number) => (
-              <Marker
+              <MarkerF
                 key={idx}
-                position={{ lat: e.lat, lng: e.lng }}
+                position={{ lat: +e.latitude, lng: +e.longitude }}
                 onClick={() => showhideInfohandler(idx)}
-                // clusterer={clusterer}
-                // options={options}
                 icon={"./park-icon.png"}
               >
                 {selected.includes(idx) && (
-                  <InfoWindow
+                  <InfoWindowF
+                    // key={idx}
                     position={{ lat: +e.latitude, lng: +e.longitude }}
                     onCloseClick={() => showhideInfohandler(idx)}
                   >
                     <div>{e.fullName}</div>
-                  </InfoWindow>
+                  </InfoWindowF>
                 )}
-              </Marker>
+              </MarkerF>
             ))
           )}
-          {/* </>
-            )}
-          </MarkerClusterer> */}
         </GoogleMap>
       </div>
     </div>
@@ -105,56 +91,30 @@ const Map = ({ markerPos }: MarkerType) => {
 
 export default Map;
 
-{
-  /* <MarkerClusterer
-  maxZoom={6}
-  averageCenter={true}
-  // onClick={() => console.log("mattoko")}
-  onLoad={() => console.log("mattoko")}
-  ignoreHidden={true}
->
-  {(clusterer) => {
-    return (
-      <div>
-        {markerPos.map((e: any, idx: number) => (
-          <Marker
-            key={idx}
-            position={{ lat: +e.latitude, lng: +e.longitude }}
-            onClick={() => showhideInfohandler(idx)}
-            clusterer={clusterer}
-          >
-            {selected.includes(idx) && (
-              <InfoWindow
-                position={{ lat: +e.latitude, lng: +e.longitude }}
-                onCloseClick={() => showhideInfohandler(idx)}
-              >
-                <div>{e.fullName}</div>
-              </InfoWindow>
-            )}
-          </Marker>
-        ))}
-      </div>
-    );
-  }}
-</MarkerClusterer>; */
-}
-
-// {markerPos.map((e: any, idx: number) => (
-//   <MarkerF
-//     key={idx}
-//     position={{ lat: +e.latitude, lng: +e.longitude }}
-//     onClick={() => showhideInfohandler(idx)}
-//     options={options}
-//     icon={"./park-icon.png"} // public/park-icon.png
-//   >
-//     {selected.includes(idx) && (
-//       <InfoWindowF
-//         key={idx}
-//         position={{ lat: +e.latitude, lng: +e.longitude }}
-//         onCloseClick={() => showhideInfohandler(idx)}
-//       >
-//         <div className={styles.info}>{e.fullName}</div>
-//       </InfoWindowF>
-//     )}
-//   </MarkerF>
-// ))}
+// <MarkerClustererF>
+//             {(clusterer) => {
+//               return (
+//                 <>
+//                   {markerPos.map((e: any, idx: number) => (
+//                     <MarkerF
+//                       key={idx}
+//                       position={{ lat: +e.latitude, lng: +e.longitude }}
+//                       onClick={() => showhideInfohandler(idx)}
+//                       icon={"./park-icon.png"}
+//                       clusterer={clusterer}
+//                     >
+//                       {selected.includes(idx) && (
+//                         <InfoWindowF
+//                           // key={idx}
+//                           position={{ lat: +e.latitude, lng: +e.longitude }}
+//                           onCloseClick={() => showhideInfohandler(idx)}
+//                         >
+//                           <div>{e.fullName}</div>
+//                         </InfoWindowF>
+//                       )}
+//                     </MarkerF>
+//                   ))}
+//                 </>
+//               );
+//             }}
+//           </MarkerClustererF>
